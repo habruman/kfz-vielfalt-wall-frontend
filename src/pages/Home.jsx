@@ -14,40 +14,45 @@ export default function Home() {
         minHeight: "100vh",
         width: "100vw",
         overflowX: "hidden",
-        paddingTop: "40px",
+        paddingTop: { xs: "24px", md: "40px" },
+        paddingBottom: "50px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        boxSizing: "border-box",
       }}
     >
       <Box
         sx={{
           display: "flex",
-          flexWrap: "nowrap",
+          flexDirection: { xs: "column", md: "row" },
           width: "100%",
           maxWidth: "1400px",
           gap: "20px",
-          paddingX: "20px",
+          paddingX: { xs: "14px", md: "20px" },
           alignItems: "stretch",
-          height: "680px",
+          height: { xs: "auto", md: "680px" },
+          boxSizing: "border-box",
         }}
       >
         {/* LEFT HERO MOSAIC */}
         <Box
           sx={{
-            flex: "1 1 0",
+            flex: { xs: "none", md: "1 1 0" },
+            width: "100%",
             minWidth: "0",
             borderRadius: "6px",
             overflow: "hidden",
-            height: "100%",
+            height: { xs: "380px", sm: "460px", md: "100%" },
             backgroundColor: "#111",
             position: "relative",
           }}
         >
-          <img
+          <Box
+            component="img"
             src="/vielfalt-hero.png"
             alt="Vielfalt Wall Hero"
-            style={{
+            sx={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
@@ -75,13 +80,18 @@ export default function Home() {
               transform: "translate(-50%, -50%)",
               textAlign: "center",
               color: colors.white,
-              width: "85%",
+              width: { xs: "90%", md: "85%" },
               zIndex: 2,
             }}
           >
             <Typography
               sx={{
-                fontSize: { xs: "26px", sm: "36px", md: "44px", lg: "52px" },
+                fontSize: {
+                  xs: "24px",
+                  sm: "34px",
+                  md: "44px",
+                  lg: "52px",
+                },
                 fontWeight: "900",
                 textTransform: "uppercase",
                 marginBottom: "20px",
@@ -99,8 +109,8 @@ export default function Home() {
                 backgroundColor: "#FFEB00",
                 color: "#000000",
                 fontWeight: "bold",
-                padding: "12px 26px",
-                fontSize: "18px",
+                padding: { xs: "10px 18px", md: "12px 26px" },
+                fontSize: { xs: "14px", md: "18px" },
                 border: "2px solid transparent",
                 ":hover": { backgroundColor: "#FFEB00" },
               }}
@@ -114,13 +124,14 @@ export default function Home() {
         {/* RIGHT PROGRAM BOX */}
         <Box
           sx={{
-            flex: "0 0 350px",
+            flex: { xs: "none", md: "0 0 350px" },
+            width: "100%",
             backgroundColor: colors.yellow,
-            padding: "30px",
+            padding: { xs: "24px", md: "30px" },
             borderRadius: "6px",
-            height: "100%",
+            height: { xs: "auto", md: "100%" },
             boxSizing: "border-box",
-            overflowY: "auto",
+            overflowY: { xs: "visible", md: "auto" },
             display: "flex",
             flexDirection: "column",
           }}
@@ -132,12 +143,14 @@ export default function Home() {
                 fontWeight: "900",
                 marginBottom: "20px",
                 fontFamily: "Roboto Condensed, sans-serif",
+                fontSize: { xs: "28px", md: "34px" },
+                lineHeight: 1.1,
               }}
             >
               ENTDECKE UNSER PROGRAMM
             </Typography>
 
-            <Box sx={{ marginBottom: "20px" }}>
+            <Box sx={{ marginBottom: "24px" }}>
               <Typography sx={{ fontWeight: "bold" }}>
                 NACHTTANZDEMO
               </Typography>
@@ -170,6 +183,7 @@ export default function Home() {
               fontWeight: "bold",
               padding: "10px 20px",
               textDecoration: "none",
+              marginTop: { xs: "10px", md: "auto" },
               ":hover": {
                 backgroundColor: "rgba(0,0,0,0.1)",
                 borderColor: "#000",
@@ -185,11 +199,15 @@ export default function Home() {
         sx={{
           color: "#999",
           textAlign: "center",
-          fontSize: "30px",
+          fontSize: { xs: "13px", md: "30px" },
           marginTop: 4,
+          paddingX: "20px",
+          maxWidth: "900px",
+          lineHeight: 1.5,
         }}
       >
-        Prototyp im Rahmen eines universitären Projekts. Keine offizielle Webseite des KFZ Marburg.
+        Prototyp im Rahmen eines universitären Projekts. Keine offizielle
+        Webseite des KFZ Marburg.
       </Typography>
     </Box>
   );
