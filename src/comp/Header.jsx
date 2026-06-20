@@ -50,17 +50,17 @@ const [anchorMobile, setAnchorMobile] = useState(null);
 const openMobile = Boolean(anchorMobile);
     
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: colors.black,
-        height: "95px",
-        display: "flex",
-        justifyContent: "center",
-        boxShadow: "none",
-        paddingX: 3,
-      }}
-    >
+<AppBar
+  position="static"
+  sx={{
+    backgroundColor: colors.black,
+    height: { xs: "80px", md: "95px" },
+    display: "flex",
+    justifyContent: "center",
+    boxShadow: "none",
+    paddingX: { xs: 1.5, md: 3 },
+  }}
+>
       <Toolbar
         sx={{
           display: "flex",
@@ -78,14 +78,15 @@ const openMobile = Boolean(anchorMobile);
     cursor: "pointer",
   }}
 >
-  <img
-    src={logo}
-    alt="KFZ"
-    style={{
-      height: "120px",
-      width: "auto",
-    }}
-  />
+<Box
+  component="img"
+  src={logo}
+  alt="KFZ"
+  sx={{
+    height: { xs: "80px", md: "120px" },
+    width: "auto",
+  }}
+/>
 </Box>
           
           
@@ -124,7 +125,7 @@ const openMobile = Boolean(anchorMobile);
 
   <MenuItem
     onClick={() => {
-      window.location.href = "https://www.kfz-marburg.de/location";
+      window.location.href = "https://www.kfz-marburg.de/die-location";
       setAnchorMobile(null);
     }}
   >
@@ -142,7 +143,7 @@ const openMobile = Boolean(anchorMobile);
 
   <MenuItem
     onClick={() => {
-      window.location.href = "https://www.kfz-marburg.de/merch";
+      window.location.href = "https://shop.kfz-marburg.de/";
       setAnchorMobile(null);
     }}
   >
@@ -160,7 +161,7 @@ const openMobile = Boolean(anchorMobile);
 
   <MenuItem
     onClick={() => {
-      window.location.href = "https://www.kfz-marburg.de/spenden/";
+      window.location.href = "https://www.kfz-marburg.de/jetzt-spenden";
       setAnchorMobile(null);
     }}
     sx={{
@@ -184,7 +185,7 @@ const openMobile = Boolean(anchorMobile);
         {/* NAVIGATION */}
 <Box
   sx={{
-    display: "flex",
+    display: { xs: "none", md: "flex" },
     alignItems: "center",
     gap: 1.5,                // Buttons näher zueinander
     fontSize: "20px",
@@ -333,7 +334,7 @@ const openMobile = Boolean(anchorMobile);
 {/* SOCIAL MEDIA & TRANSLATE ICONS */}
 <Box
   sx={{
-    display: "flex",
+    display: { xs: "none", md: "flex" },
     alignItems: "center",
     gap: 0.4,
     color: colors.white,
