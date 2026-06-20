@@ -1,0 +1,33 @@
+.icon-link {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+/* Spotify */
+.icon-spotify {
+  background-image: url("../assets/icons/spotify.png");
+}
+
+/* TikTok */
+.icon-tiktok {
+  background-image: url("../assets/icons/tiktok.png");
+}
+
+/* Translate */
+.icon-translate {
+  background-image: url("../assets/icons/translate.png");
+}
+
+/* Divider */
+.icon-divider {
+  width: 1px;
+  height: 26px;
+  background-color: white;
+  margin: 0 14px;
+}
