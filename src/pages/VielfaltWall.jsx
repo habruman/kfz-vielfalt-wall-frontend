@@ -806,11 +806,29 @@ formData.append("likeness", "veryHigh");
                     <Typography sx={{ fontWeight: "900", fontSize: "14px" }}>
                       {text}
                     </Typography>
+                          
+                          
+                          
+                          
+                          
                   </Box>
+                      
                 ))}
               </Box>
+                
             </Box>
+              
           </Box>
+            <Typography
+  sx={{
+    color: "#999",
+    textAlign: "center",
+    fontSize: "30px",
+    marginTop: 4,
+  }}
+>
+  Prototyp im Rahmen eines universitären Projekts. Keine offizielle Webseite des KFZ Marburg.
+</Typography>
         </Box>
       </Box>
     </Box>
