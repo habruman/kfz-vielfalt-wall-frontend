@@ -23,6 +23,10 @@ import SpotifyIcon from "../assets/icons/SpotifyIcon";
 import TiktokBoxIcon from "../assets/icons/TiktokBoxIcon";
 import TranslateIcon from "@mui/icons-material/Translate";
 
+
+import MenuIcon from "@mui/icons-material/Menu";
+
+
 const colors = {
   black: "#000000",
   yellow: "#FFEB00",
@@ -42,7 +46,8 @@ export default function Header() {
 const [anchorSpenden, setAnchorSpenden] = useState(null);
 const openSpenden = Boolean(anchorSpenden); 
     
-    
+const [anchorMobile, setAnchorMobile] = useState(null);
+const openMobile = Boolean(anchorMobile);
     
   return (
     <AppBar
@@ -82,6 +87,99 @@ const openSpenden = Boolean(anchorSpenden);
     }}
   />
 </Box>
+          
+          
+   <IconButton
+  sx={{
+    display: { xs: "flex", md: "none" },
+    color: colors.white,
+  }}
+  onClick={(e) => setAnchorMobile(e.currentTarget)}
+>
+  <MenuIcon fontSize="large" />
+</IconButton>       
+          
+          
+         <Menu
+  anchorEl={anchorMobile}
+  open={openMobile}
+  onClose={() => setAnchorMobile(null)}
+  PaperProps={{
+    sx: {
+      backgroundColor: colors.black,
+      color: colors.white,
+      border: "1px solid #333",
+      minWidth: "220px",
+    },
+  }}
+>
+  <MenuItem
+    onClick={() => {
+      window.location.href = "https://www.kfz-marburg.de/programm";
+      setAnchorMobile(null);
+    }}
+  >
+    PROGRAMM
+  </MenuItem>
+
+  <MenuItem
+    onClick={() => {
+      window.location.href = "https://www.kfz-marburg.de/location";
+      setAnchorMobile(null);
+    }}
+  >
+    LOCATION
+  </MenuItem>
+
+  <MenuItem
+    onClick={() => {
+      window.location.href = "https://www.kfz-marburg.de/team";
+      setAnchorMobile(null);
+    }}
+  >
+    TEAM
+  </MenuItem>
+
+  <MenuItem
+    onClick={() => {
+      window.location.href = "https://www.kfz-marburg.de/merch";
+      setAnchorMobile(null);
+    }}
+  >
+    MERCH
+  </MenuItem>
+
+  <MenuItem
+    onClick={() => {
+      window.location.href = "/vielfalt-wall";
+      setAnchorMobile(null);
+    }}
+  >
+    VIELFALT-WALL
+  </MenuItem>
+
+  <MenuItem
+    onClick={() => {
+      window.location.href = "https://www.kfz-marburg.de/spenden/";
+      setAnchorMobile(null);
+    }}
+    sx={{
+      backgroundColor: colors.red,
+      fontWeight: "bold",
+      "&:hover": {
+        backgroundColor: "#c41f22",
+      },
+    }}
+  >
+    SPENDEN
+  </MenuItem>
+</Menu>
+          
+          
+          
+          
+          
+          
 
         {/* NAVIGATION */}
 <Box
