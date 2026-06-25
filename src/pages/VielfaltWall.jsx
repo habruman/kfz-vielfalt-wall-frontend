@@ -24,6 +24,10 @@ const kfz = {
 const AVATAR_API_URL =
   import.meta.env.VITE_AVATAR_API_URL || "http://localhost:5000/api/avatar";
 
+// FESTE WERTE
+const FIXED_STYLE = "cartoon";
+const FIXED_VIEW_TYPE = "fullbody";
+
 export default function VielfaltWall() {
   const generatorRef = useRef(null);
 
@@ -31,13 +35,9 @@ export default function VielfaltWall() {
   const [previewImage, setPreviewImage] = useState(null);
   const [avatarImage, setAvatarImage] = useState(null);
 
-  const [style, setStyle] = useState("sticker");
-  const [viewType, setViewType] = useState("portrait");
   const [background, setBackground] = useState("clean");
   const [mood, setMood] = useState("friendly");
-  const [format, setFormat] = useState("sticker");
   const [outfit, setOutfit] = useState("keep");
-  const [customOutfit, setCustomOutfit] = useState("");
   const [extraPrompt, setExtraPrompt] = useState("");
   const [accessories, setAccessories] = useState([]);
 
@@ -53,7 +53,7 @@ export default function VielfaltWall() {
   };
 
   const handleUpload = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
 
     if (!file) return;
 
@@ -91,18 +91,25 @@ export default function VielfaltWall() {
 
       const formData = new FormData();
 
-formData.append("image", selectedFile);
-formData.append("style", style);
-formData.append("viewType", viewType);
-formData.append("background", background);
-formData.append("mood", mood);
-formData.append("format", format);
-formData.append("outfit", outfit);
-formData.append("customOutfit", customOutfit.trim());
-formData.append("likeness", "veryHigh");
+      formData.append("image", selectedFile);
+
+      // Fest eingebaut: immer Cartoon und immer Ganzkörper
+      formData.append("style", FIXED_STYLE);
+      formData.append("viewType", FIXED_VIEW_TYPE);
+
+      // Optionen bleiben
+      formData.append("background", background);
+      formData.append("mood", mood);
+      formData.append("outfit", outfit);
+
+      // Qualität/Ähnlichkeit immer hoch
+      formData.append("likeness", "veryHigh");
+
+      // Wichtig für mehrere Personen
+      formData.append("peopleMode", "allPeople");
 
       const wallPrompt =
-        "Create a friendly, colorful avatar suitable for a public diversity wall. The avatar should be clean, positive, printable, and suitable for being displayed on a community wall.";
+        "Create a friendly, colorful full-body cartoon avatar suitable for a public diversity wall. Use one consistent cartoon style for all visible people. If there are multiple people in the uploaded photo, every visible person must appear in the final image. Keep the same number of people, preserve facial likeness, hairstyle, skin tone, age, expression, pose, and relative positions. Do not remove, merge, replace, or add people. The avatar should be clean, positive, printable, and suitable for being displayed on a community wall.";
 
       formData.append(
         "extraPrompt",
@@ -169,26 +176,26 @@ formData.append("likeness", "veryHigh");
         }}
       >
         {/* OBERE SECTION */}
-<Box
-  sx={{
-    display: "flex",
-    flexWrap: { xs: "wrap", md: "nowrap" },
-    gap: "20px",
-    alignItems: "stretch",
-    height: { xs: "auto", md: "750px" }, 
-  }}
->
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: { xs: "wrap", md: "nowrap" },
+            gap: "20px",
+            alignItems: "stretch",
+            height: { xs: "auto", md: "750px" },
+          }}
+        >
           {/* LINKS: FESTES ORIGINALBILD */}
           <Box
             sx={{
-  flex: "1 1 0",
-  minWidth: "0",
-  height: { xs: "420px", md: "100%" },
-  borderRadius: "10px",
-  overflow: "hidden",
-  position: "relative",
-  backgroundColor: "#111",
-}}
+              flex: "1 1 0",
+              minWidth: "0",
+              height: { xs: "420px", md: "100%" },
+              borderRadius: "10px",
+              overflow: "hidden",
+              position: "relative",
+              backgroundColor: "#111",
+            }}
           >
             <Box
               component="img"
@@ -247,17 +254,17 @@ formData.append("likeness", "veryHigh");
 
           {/* RECHTS: INFOBOX */}
           <Box
-      sx={{
-  flex: { xs: "1 1 100%", md: "0 0 380px" },
-  height: { xs: "auto", md: "100%" },
-  backgroundColor: kfz.yellow,
-  color: kfz.black,
-  borderRadius: "10px",
-  padding: "34px",
-  boxSizing: "border-box",
-  display: "flex",
-  flexDirection: "column",
-}}
+            sx={{
+              flex: { xs: "1 1 100%", md: "0 0 380px" },
+              height: { xs: "auto", md: "100%" },
+              backgroundColor: kfz.yellow,
+              color: kfz.black,
+              borderRadius: "10px",
+              padding: "34px",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
             <Typography
               variant="h3"
@@ -278,8 +285,8 @@ formData.append("likeness", "veryHigh");
                 marginBottom: 3,
               }}
             >
-              Erstelle deinen eigenen Avatar. Wir drucken ihn aus und hängen ihn
-              an unsere Vielfalt-Wall im KFZ.
+              Erstelle deinen eigenen Cartoon-Avatar. Wir drucken ihn aus und
+              hängen ihn an unsere Vielfalt-Wall im KFZ.
             </Typography>
 
             <Typography
@@ -307,7 +314,9 @@ formData.append("likeness", "veryHigh");
               </Typography>
 
               <Typography sx={{ marginBottom: 1 }}>1. Foto hochladen</Typography>
-              <Typography sx={{ marginBottom: 1 }}>2. Avatar erstellen</Typography>
+              <Typography sx={{ marginBottom: 1 }}>
+                2. Cartoon-Avatar erstellen
+              </Typography>
               <Typography sx={{ marginBottom: 1 }}>3. Avatar prüfen</Typography>
               <Typography>4. Ausdruck kommt an die Wall</Typography>
             </Box>
@@ -354,8 +363,8 @@ formData.append("likeness", "veryHigh");
             </Typography>
 
             <Typography sx={{ color: "#ccc", fontSize: "18px" }}>
-              Wähle ein Bild aus, passe Stil und Details an und lass daraus
-              deinen Vielfalt-Wall-Avatar entstehen.
+              Lade ein Bild hoch. Der Avatar wird automatisch als Cartoon im
+              Ganzkörper-Stil erstellt.
             </Typography>
           </Box>
 
@@ -383,7 +392,7 @@ formData.append("likeness", "veryHigh");
                   marginBottom: 3,
                 }}
               >
-                1. Bild & Stil auswählen
+                1. Bild & Details auswählen
               </Typography>
 
               <Button
@@ -436,11 +445,12 @@ formData.append("likeness", "veryHigh");
                   />
 
                   <Typography sx={{ fontSize: "14px", lineHeight: 1.4 }}>
-                    Am besten funktioniert ein gut sichtbares Gesicht mit heller
-                    Beleuchtung.
+                  Am besten funktioniert ein helles Bild, auf dem alle Personen gut sichtbar sind. Ideal sind Ganzkörperbilder mit guter Beleuchtung und klar erkennbaren Gesichtern.
                   </Typography>
                 </Box>
               )}
+
+
 
               <Box
                 sx={{
@@ -450,32 +460,6 @@ formData.append("likeness", "veryHigh");
                   marginBottom: 2,
                 }}
               >
-                <FormControl fullWidth size="small" sx={inputStyle}>
-                  <InputLabel>Stil</InputLabel>
-                  <Select
-                    value={style}
-                    label="Stil"
-                    onChange={(e) => setStyle(e.target.value)}
-                  >
-                    <MenuItem value="avatar">3D Avatar</MenuItem>
-                    <MenuItem value="cartoon">Cartoon</MenuItem>
-                    <MenuItem value="anime">Anime-ähnlich</MenuItem>
-                    <MenuItem value="sticker">Sticker</MenuItem>
-                  </Select>
-                </FormControl>
-
-                <FormControl fullWidth size="small" sx={inputStyle}>
-                  <InputLabel>Ansicht</InputLabel>
-                  <Select
-                    value={viewType}
-                    label="Ansicht"
-                    onChange={(e) => setViewType(e.target.value)}
-                  >
-                    <MenuItem value="portrait">Kopfportrait</MenuItem>
-                    <MenuItem value="fullbody">Ganzkörper</MenuItem>
-                  </Select>
-                </FormControl>
-
                 <FormControl fullWidth size="small" sx={inputStyle}>
                   <InputLabel>Hintergrund</InputLabel>
                   <Select
@@ -507,19 +491,6 @@ formData.append("likeness", "veryHigh");
                 </FormControl>
 
                 <FormControl fullWidth size="small" sx={inputStyle}>
-                  <InputLabel>Format</InputLabel>
-                  <Select
-                    value={format}
-                    label="Format"
-                    onChange={(e) => setFormat(e.target.value)}
-                  >
-                    <MenuItem value="profile">Profilbild</MenuItem>
-                    <MenuItem value="instagram">Instagram-Post</MenuItem>
-                    <MenuItem value="sticker">Sticker</MenuItem>
-                  </Select>
-                </FormControl>
-
-                <FormControl fullWidth size="small" sx={inputStyle}>
                   <InputLabel>Outfit</InputLabel>
                   <Select
                     value={outfit}
@@ -537,19 +508,6 @@ formData.append("likeness", "veryHigh");
                   </Select>
                 </FormControl>
               </Box>
-
-              <TextField
-                fullWidth
-                size="small"
-                label="Eigenes Outfit optional"
-                placeholder="z. B. schwarzer Hoodie, Anzug, langes Kleid..."
-                value={customOutfit}
-                onChange={(e) => setCustomOutfit(e.target.value)}
-                sx={{
-                  ...inputStyle,
-                  marginBottom: 2,
-                }}
-              />
 
               <Box
                 sx={{
@@ -738,7 +696,8 @@ formData.append("likeness", "veryHigh");
                     </Typography>
 
                     <Typography sx={{ lineHeight: 1.5 }}>
-                      Nach dem Erstellen erscheint dein fertiger Avatar hier.
+                      Nach dem Erstellen erscheint dein fertiger Cartoon-Avatar
+                      hier.
                     </Typography>
                   </Box>
                 ) : (
@@ -775,7 +734,6 @@ formData.append("likeness", "veryHigh");
                   >
                     Avatar herunterladen
                   </Button>
-
                 </Box>
               )}
 
@@ -789,7 +747,7 @@ formData.append("likeness", "veryHigh");
               >
                 {[
                   ["📸", "Bild hochladen"],
-                  ["🎨", "Stil wählen"],
+                  ["🎨", "Avatar erstellen"],
                   ["🖨️", "Drucken"],
                 ].map(([icon, text]) => (
                   <Box
@@ -806,29 +764,23 @@ formData.append("likeness", "veryHigh");
                     <Typography sx={{ fontWeight: "900", fontSize: "14px" }}>
                       {text}
                     </Typography>
-                          
-                          
-                          
-                          
-                          
                   </Box>
-                      
                 ))}
               </Box>
-                
             </Box>
-              
           </Box>
-            <Typography
-  sx={{
-    color: "#999",
-    textAlign: "center",
-    fontSize: "30px",
-    marginTop: 4,
-  }}
->
-  Prototyp im Rahmen eines universitären Projekts. Keine offizielle Webseite des KFZ Marburg.
-</Typography>
+
+          <Typography
+            sx={{
+              color: "#999",
+              textAlign: "center",
+              fontSize: "30px",
+              marginTop: 4,
+            }}
+          >
+            Prototyp im Rahmen eines universitären Projekts. Keine offizielle
+            Webseite des KFZ Marburg.
+          </Typography>
         </Box>
       </Box>
     </Box>
